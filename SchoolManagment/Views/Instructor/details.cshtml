@@ -1,0 +1,72 @@
+﻿@model Instructor
+@{
+    SelectList depts;
+    if (Model != null)
+    {
+        depts = new SelectList(ViewBag.Depts, "Id", "Name", Model.dept_Id);
+    }
+    else
+    {
+        depts = new SelectList(ViewBag.Depts, "Id", "Name");
+    }
+
+    SelectList crs;
+    if (Model != null)
+    {
+        crs = new SelectList(ViewBag.Crs, "Id", "Name", Model.dept_Id);
+    }
+    else
+    {
+        crs = new SelectList(ViewBag.Crs, "Id", "Name");
+    }
+}
+<form asp-controller="Instructor" asp-action="details" asp-route-id="@Model.Id" method="post">
+    <div class="mb-2">
+        <label asp-for="Name"></label>
+        <input asp-for="Name" class="form-control" readonly />
+    </div>
+    <div class="mb-2">
+        <label asp-for="Imag"></label>
+        <input asp-for="Imag" class="form-control" readonly />
+    </div>
+    <div class="mb-2">
+        <label asp-for="Salary"></label>
+        <input asp-for="Salary" class="form-control" readonly />
+    </div>
+    <div class="mb-2">
+        <label asp-for="Address">Address</label>
+        <input asp-for="Address" class="form-control" readonly />
+    </div>
+    <div class="mb-2">
+        <label asp-for="dept_Id"></label>
+        <select asp-for="dept_Id" asp-items="depts" class="form-control" disabled>
+          
+        </select>
+    </div>
+    <div class="mb-2">
+
+
+
+        <label asp-for="crs_id"></label>
+        <select asp-for="crs_id" asp-items="crs" class="form-control" disabled>
+          
+        </select>
+     @*    <label for="Course">Course</label>
+        <select name="crs_id" id="Course" class="form-control" disabled>
+            @foreach (var item in ViewBag.Crs)
+            {
+                if (item.Id == Model.crs_id)
+                {
+                    <option value="@item.Id" selected>@item.Name</option>
+                }
+                else
+                {
+                    <option value="@item.Id">@item.Name</option>
+                }
+            }
+        </select> *@
+    </div>
+
+
+    <input type="submit" name="cancelButton" value="back" class="btn btn-info" formaction="/Instructor/Index" />
+</form>

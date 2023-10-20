@@ -1,0 +1,55 @@
+﻿@model IEnumerable<Instructor>
+
+<table class=" table table-bordered table-hover ">
+
+    <tr>
+        <th class="text-center align-middle">
+            
+             NAME
+        </th>
+        <th class="text-center align-middle">
+             ADRESS
+        </th>
+        <th class="text-center align-middle">
+             SALARY
+        </th>
+
+        <th class="text-center align-middle">
+             DEPARTMENT
+        </th>
+        <th class="text-center align-middle">
+             Course
+        </th>
+        <th class="text-center align-middle">
+            Edit
+        </th>
+        <th class="text-center align-middle">
+            Details
+        </th>
+        <th class="text-center align-middle">
+            Delete
+        </th>
+    </tr>
+    @foreach (var item in Model)
+    {
+       <tr>
+            <td class="text-center align-middle">@Html.DisplayFor(I => item.Name)</td>
+            <td class="text-center align-middle">@item.Address</td>
+            <td class="text-center align-middle">@item.Salary</td>
+            <td class="text-center align-middle">@item.Department?.Name</td>
+            <td class="text-center align-middle">@item.Course?.Name</td>
+           <td class="text-center align-middle">
+                <a class="btn btn-info align-content-center" asp-action="Edit" asp-controller="Instructor" asp-route-Id ="@item.Id">Edit</a>
+           </td>
+            <td class="text-center align-middle">
+                <a class="btn btn-warning align-content-center" asp-action="details" asp-controller="Instructor" asp-route-Id="@item.Id">Details</a>
+            </td>
+            <td class="text-center align-middle">
+                <a class="btn btn-danger align-content-center" asp-action="delete" asp-controller="Instructor" asp-route-Id="@item.Id" >Delete</a>
+            </td>
+       </tr> 
+    }
+</table>
+
+<a href="\Instructor\Add" class="btn btn-success">Add New instructor</a>
+

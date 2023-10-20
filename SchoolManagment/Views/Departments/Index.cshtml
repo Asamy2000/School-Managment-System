@@ -1,0 +1,97 @@
+﻿@model IEnumerable<Department>
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Index</h2>
+
+<div class="row justify-content-center align-content-center mb-3">
+    <form class="row col-8 offset-1">
+        <div class="col-8">
+            <input placeholder="Search by Department Name" type="text" name="SearchValue" class="form-control" />
+        </div>
+        <div class="col-4">
+            <input class="btn btn-primary" type="submit" value="Search" />
+        </div>
+    </form>
+</div>
+
+<table  class="table table-bordered table-hover">
+    <thead>
+        <tr>
+            <th class="text-center align-middle">
+                Name
+            </th>
+            <th class="text-center align-middle">
+                Manager
+            </th>
+            <th class="text-center align-middle">
+               
+                Edit
+            </th>
+            <th class="text-center align-middle">
+               
+                Details
+            </th>
+            <th class="text-center align-middle">
+              
+                Delete
+            </th>
+            <th class="text-center align-middle">
+
+                Instructors
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td class="text-center align-middle">
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td class="text-center align-middle">
+                @Html.DisplayFor(modelItem => item.Manager)
+            </td>
+            <td class="text-center align-middle">
+                    <a class="btn btn-info align-content-center" asp-action="Edit" asp-route-id="@item.Id">Edit</a> 
+            </td>
+                <td class="text-center align-middle">
+                    <a class="btn btn-warning align-content-center" asp-action="Details" asp-route-id="@item.Id">Details</a> 
+                </td>
+                <td class="text-center align-middle">
+                    <a class="btn btn-danger align-content-center" asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                </td>
+                <td class="text-center align-middle">
+                    <input type="button" onclick="AjaxCall(@item.Id)"  value="Show" class="btn btn-outline-primary" />
+                </td>
+        </tr>
+}
+    </tbody>
+</table>
+
+<p>
+    <a class="btn btn-success mb-1" asp-action="Create">Create New</a>
+</p>
+
+<div style="background-color:burlywood" id="div1">
+</div>
+
+@section Scripts{
+    <script>
+        function AjaxCall(id) {
+            console.log(id);
+            $.ajax(
+                {
+                    url: "/Instructor/GetInstructorsByDeptId",
+                    data: { "DeptId": id },
+                    success: function (result) {
+                        $("#div1").html(result);
+                    }
+                }
+            );
+        }
+
+    </script>
+}

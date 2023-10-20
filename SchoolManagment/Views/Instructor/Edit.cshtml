@@ -1,0 +1,67 @@
+﻿
+@model _InstructorVM
+@{
+    SelectList depts;
+        depts = new SelectList(ViewBag.Depts, "Id", "Name", Model.dept_Id);
+    SelectList crs;
+        crs = new SelectList(ViewBag.Crs, "Id", "Name", Model.dept_Id);
+   
+}
+<form asp-controller="Instructor" asp-action="SaveEdit" asp-route-id="@Model.Id" method="post">
+
+   <input type="hidden" asp-for="Id" class="form-control" />
+
+    <div class="mb-2">
+        <label asp-for="Name"></label>
+        <input asp-for="Name" class="form-control"  />
+        <span class="text-danger" asp-validation-for="Name"></span>
+    </div>
+    <div class="mb-2">
+        <label asp-for="Imag"></label>
+        <input asp-for="Imag" class="form-control"  />
+    </div>
+    <div class="mb-2">
+        <label asp-for="Salary"></label>
+        <input asp-for="Salary" class="form-control"  />
+    </div>
+    <div class="mb-2">
+        <label asp-for="Address">Address</label>
+        <input asp-for="Address" class="form-control"  />
+    </div>
+    <div class="mb-2">
+        <label asp-for="Department"></label>
+        <select asp-for="dept_Id" asp-items="depts" class="form-control" >
+          
+        </select>
+    </div>
+    <div class="mb-2">
+        <label asp-for="Course"></label>
+        <select asp-for="crs_id" asp-items="crs" class="form-control" >
+          
+        </select>
+     @*    <label for="Course">Course</label>
+        <select name="crs_id" id="Course" class="form-control" disabled>
+            @foreach (var item in ViewBag.Crs)
+            {
+                if (item.Id == Model.crs_id)
+                {
+                    <option value="@item.Id" selected>@item.Name</option>
+                }
+                else
+                {
+                    <option value="@item.Id">@item.Name</option>
+                }
+            }
+        </select> *@
+    </div>
+
+
+    <input type="submit" value="Save" class="btn btn-success" />
+</form>
+
+@section Scripts
+    {
+
+    <script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
+    <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
+    }
